@@ -70,7 +70,6 @@ class ResNet(nn.Module):
         self.relu = nn.ReLU()
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
 
-     
         self.layer1 = self._make_layer(
             block, layers[0], intermediate_channels=64, stride=1
         )
@@ -86,7 +85,6 @@ class ResNet(nn.Module):
 
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         self.fc = nn.Linear(512 * 4, num_classes)
-        
 
     def forward(self, x):
         x = self.conv1(x)
@@ -101,7 +99,7 @@ class ResNet(nn.Module):
         x = self.avgpool(x)
         x = x.reshape(x.shape[0], -1)
         x = self.fc(x)
-        
+
         return x
 
     def _make_layer(self, block, num_residual_blocks, intermediate_channels, stride):
@@ -124,10 +122,8 @@ class ResNet(nn.Module):
             block(self.in_channels, intermediate_channels, identity_downsample, stride)
         )
 
-   
         self.in_channels = intermediate_channels * 4
 
-   
         for i in range(num_residual_blocks - 1):
             layers.append(block(self.in_channels, intermediate_channels))
 
@@ -144,4 +140,3 @@ def ResNet101(img_channel=3, num_classes=1000):
 
 def ResNet152(img_channel=3, num_classes=1000):
     return ResNet(block, [3, 8, 36, 3], img_channel, num_classes)
-
