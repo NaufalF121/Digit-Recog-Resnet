@@ -1,1 +1,1 @@
-# Digit Recogniton with resnet 
+# Digit Recogniton from scratch with resnet 
